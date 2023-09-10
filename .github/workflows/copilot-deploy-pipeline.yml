@@ -38,7 +38,7 @@ jobs:
 
   stable:
     uses: ./.github/workflows/copilot-deploy-environment.yml
-    needs: int-tests
+    needs: [build, int, int-tests]
     with:
       ENVIRONMENT: stable
       ARTIFACT_NAME: ${{needs.build.outputs.artifact}}
