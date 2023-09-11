@@ -4,7 +4,7 @@ import { expect } from '@playwright/test';
 import * as util from './utils';
 
 /*
-Summary: Tests if the Copilot Chat can use the Planner with the Klarna plugin, 
+Summary: Tests if the CLARA&bull;T Chat can use the Planner with the Klarna plugin, 
 to generate a plan and execute it. Klarna doesnt require any auth credentials.   
 */
 export async function klarnaTest(page) {
@@ -34,7 +34,7 @@ export async function klarnaTest(page) {
 }
 
 /*
-Summary: Tests if the Copilot Chat can use the Planner with the Jira plugin, 
+Summary: Tests if the CLARA&bull;T Chat can use the Planner with the Jira plugin, 
 to generate a plan and execute it. The Jira plugin uses a Basic auth header.   
 */
 export async function jiraTest(page) {
@@ -67,7 +67,7 @@ export async function jiraTest(page) {
 }
 
 /*
-Summary: Tests if the Copilot Chat can use the Planner with the Github plugin, 
+Summary: Tests if the CLARA&bull;T Chat can use the Planner with the Github plugin, 
 to generate a plan and execute it. The Github plugin uses a PAT token for auth.   
 */
 export async function githubTest(page) {

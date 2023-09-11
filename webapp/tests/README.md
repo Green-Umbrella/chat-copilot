@@ -1,4 +1,4 @@
-﻿# Copilot Chat Web App Scenario Tests
+﻿# CLARA&bull;T Chat Web App Scenario Tests
 
 ## How to set up the tests to run locally
 

@@ -16,7 +16,7 @@ import {
     tokens,
     Tooltip,
 } from '@fluentui/react-components';
-import { Edit24Filled, EditRegular, Map16Regular, Person16Regular } from '@fluentui/react-icons';
+import { ChatBubblesQuestion16Filled, DocumentMultiple16Regular, Edit24Filled, EditRegular, Map16Regular, Person16Regular } from '@fluentui/react-icons';
 import React, { useState } from 'react';
 import { useAppSelector } from '../../redux/app/hooks';
 import { RootState } from '../../redux/app/store';
@@ -146,13 +146,21 @@ export const ChatWindow: React.FC = () => {
                         </>
                     )}
                     <TabList selectedValue={selectedTab} onTabSelect={onTabSelect}>
-                        <Tab data-testid="chatTab" id="chat" value="chat" aria-label="Chat Tab" title="Chat Tab">
+                        <Tab
+                            data-testid="chatTab"
+                            id="chat"
+                            value="chat"
+                            icon={<ChatBubblesQuestion16Filled />}
+                            aria-label="Chat Tab"
+                            title="Chat Tab"
+                        >
                             Chat
                         </Tab>
                         <Tab
                             data-testid="documentsTab"
                             id="documents"
                             value="documents"
+                            icon={<DocumentMultiple16Regular />}                            
                             aria-label="Documents Tab"
                             title="Documents Tab"
                         >

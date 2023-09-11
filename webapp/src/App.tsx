@@ -1,21 +1,23 @@
 // Copyright (c) Microsoft. All rights reserved.
 
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useIsAuthenticated, useMsal } from '@azure/msal-react';
-import { FluentProvider, Subtitle1, makeStyles, shorthands, tokens } from '@fluentui/react-components';
+import { FluentProvider, Image, Subtitle1, makeStyles, shorthands, tokens } from '@fluentui/react-components';
 
 import * as React from 'react';
 import { FC, useEffect } from 'react';
+import { LogoSection } from './components/header/LogoSection';
 import { UserSettingsMenu } from './components/header/UserSettingsMenu';
 import { PluginGallery } from './components/open-api-plugins/PluginGallery';
 import { BackendProbe, ChatView, Error, Loading, Login } from './components/views';
 import { AuthHelper } from './libs/auth/AuthHelper';
 import { useChat, useFile } from './libs/hooks';
-import { AlertType } from './libs/models/AlertType';
 import { useAppDispatch, useAppSelector } from './redux/app/hooks';
 import { RootState } from './redux/app/store';
 import { FeatureKeys } from './redux/features/app/AppState';
-import { addAlert, setActiveUserInfo, setServiceOptions } from './redux/features/app/appSlice';
+import { setActiveUserInfo, setServiceOptions } from './redux/features/app/appSlice';
 import { semanticKernelDarkTheme, semanticKernelLightTheme } from './styles';
+
+import lucasLogo from './assets/lucas-group-logo.png';
 
 export const useClasses = makeStyles({
     container: {
@@ -34,16 +36,30 @@ export const useClasses = makeStyles({
             paddingLeft: tokens.spacingHorizontalXL,
             display: 'flex',
         },
-        height: '48px',
+        height: '180px',
         justifyContent: 'space-between',
         width: '100%',
     },
     persona: {
         marginRight: tokens.spacingHorizontalXXL,
     },
+    cornerItemsStacked: {
+        display: 'flex',
+        flexDirection: 'column',
+        fontSize: '2em',
+    },
     cornerItems: {
         display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'right',
         ...shorthands.gap(tokens.spacingHorizontalS),
+    },
+    cornerItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'right',
+        ...shorthands.gap(tokens.spacingHorizontalS),
+        marginRight: tokens.spacingHorizontalXXXL,
     },
 });
 
@@ -85,16 +101,6 @@ const App: FC = () => {
                             }),
                         );
 
-                        // Privacy disclaimer for internal Microsoft users
-                        if (account.username.split('@')[1] === 'microsoft.com') {
-                            dispatch(
-                                addAlert({
-                                    message:
-                                        'By using Chat Copilot, you agree to protect sensitive data, not store it in chat, and allow chat history collection for service improvements. This tool is for internal use only.',
-                                    type: AlertType.Info,
-                                }),
-                            );
-                        }
 
                         setAppState(AppState.LoadingChats);
                     }
@@ -168,19 +174,27 @@ const Chat = ({
     return (
         <div className={classes.container}>
             <div className={classes.header}>
-                <Subtitle1 as="h1">Chat Copilot</Subtitle1>
-                {appState > AppState.SettingUserInfo && (
-                    <div className={classes.cornerItems}>
-                        <div className={classes.cornerItems}>
-                            <PluginGallery />
-                            <UserSettingsMenu
-                                setLoadingState={() => {
-                                    setAppState(AppState.SigningOut);
-                                }}
-                            />
+                <LogoSection />
+                <div className={classes.cornerItemsStacked}>
+                    <Image src={lucasLogo} style={{ height: 50, marginRight: 50, marginBottom: 10 }} />
+
+                    <div>
+                        <div>
+                            {appState > AppState.SettingUserInfo && (
+                                <div className={classes.cornerItems}>
+                                    <div className={classes.cornerItem}>
+                                        <PluginGallery />
+                                        <UserSettingsMenu
+                                            setLoadingState={() => {
+                                                setAppState(AppState.SigningOut);
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     </div>
-                )}
+                </div>
             </div>
             {appState === AppState.ProbeForBackend && (
                 <BackendProbe
