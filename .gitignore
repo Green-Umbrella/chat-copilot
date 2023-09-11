@@ -490,7 +490,3 @@ webapi/CopilotChatWebApi.sln
 
 # Tesseract OCR language data files
 *.traineddata
-
-# Semantic Kernel temp folders
-/webapi/tmp-cache/
-/webapi/tmp-memory-vectors/
